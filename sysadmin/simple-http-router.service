@@ -1,0 +1,15 @@
+[Unit]
+Description=simple-http-router HTTP reverse proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/simple-http-router -config /etc/simple-http-router/config.json
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
