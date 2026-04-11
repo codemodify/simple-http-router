@@ -1,0 +1,11 @@
+{
+	"listeners": {
+		"all-on-80": { "addr": ":80" }
+	},
+	"routing": {
+		"all-on-80": [
+			{ "host": "example1.com", "to": "127.0.0.1:8080" },
+			{ "host": "example2.com", "to": "127.0.0.1:8081" }
+		]
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"listeners": {
+		"all-on-80":  { "addr": ":80", "redirect_to_https": true },
+		"all-on-443": { "addr": ":443", "tls": true }
+	},
+	"routing": {
+		"all-on-80": [
+			{ "host": "codemodify.net", "to": "127.0.0.1:64080", "tls": false }
+		],
+		"all-on-443": [
+			{ "host": "codemodify.net", "to": "127.0.0.1:64080", "tls": false }
+		]
+	},
+	"sites-config-defaults": {
+		"cert": {
+			"renew": true,
+			"renew_account": {
+				"email": "admin@example.com",
+				"cache_dir": "cert-cache",
+				"use_staging": false
+			}
+		}
+	}
+}
