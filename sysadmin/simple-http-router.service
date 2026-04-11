@@ -1,5 +1,6 @@
 [Unit]
-Description=simple-http-router HTTP reverse proxy
+Description=simple-http-router
+Documentation=https://github.com/codemodify/simple-http-server
 After=network-online.target
 Wants=network-online.target
 

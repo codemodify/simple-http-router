@@ -2,7 +2,7 @@ FROM golang:1.26-alpine AS build
 RUN apk add --no-cache git
 WORKDIR /src
 RUN git clone https://github.com/codemodify/simple-http-router.git .
-RUN go build -o /simple-http-router .
+RUN go build -trimpath -ldflags="-s -w" -o /simple-http-router .
 
 FROM alpine:3.21
 RUN apk add --no-cache ca-certificates
