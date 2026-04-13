@@ -14,10 +14,3 @@ VOLUME ["/etc/simple-http-router", "/var/lib/simple-http-router/cert-cache"]
 EXPOSE 80 443
 ENTRYPOINT ["simple-http-router"]
 CMD ["-config", "/etc/simple-http-router/config.json"]
-
-# docker build -t simple-http-router .
-# docker run \
-#   -v /path/to/config.json:/etc/simple-http-router/config.json \
-#   -v /path/to/cert-cache:/var/lib/simple-http-router/cert-cache \
-#   -p 80:80 -p 443:443 \
-#   simple-http-router

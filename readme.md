@@ -1,14 +1,42 @@
 # what
 - light and robust HTTP router with zero third party dependencies, binary is 12MB or 3MB compressed
-- terminates TLS with Let's Encrypt over ACME + auto-renews certificates
+- terminates TLS with Let's Encrypt over ACME + auto-renews certificates (default)
 	- OR terminates TLS with custom cert if auto-renew is not wanted
 	- OR supports mTLS if set
-- forwards requests to upstream services based on the incoming host/path + allows overrides
+- forwards requests to upstream services based on the incoming host/path + overrides
 - serves "Under Maintenance" page when upstream service is unavailable
 
+
+# install - binary + systemd
+- use this systemd [simple-http-router.service](./sysadmin/simple-http-router.service)
+
+
+```sh
+# linux amd64 version (check version)
+sudo bash -c 'VERSION=2026.04.11; ARCH=x86_64; curl -L -o /usr/local/bin/simple-http-router "https://github.com/codemodify/simple-http-router/releases/download/${VERSION}/simple-http-router_linux-${ARCH}"'
+
+sudo chmod +x /usr/local/bin/simple-http-router
+/usr/local/bin/simple-http-router -version
+sudo cp simple-http-router.service /etc/systemd/system/
+sudo systemctl daemon-reload && sudo systemctl enable simple-http-router && sudo systemctl start simple-http-router
+```
+
+
+# install - docker
+- use this systemd [Dockerfile](./sysadmin/Dockerfile)
+```sh
+docker build -t simple-http-router .
+docker run \
+  -v /path/to/config.json:/etc/simple-http-router/config.json \
+  -v /path/to/cert-cache:/var/lib/simple-http-router/cert-cache \
+  -p 80:80 -p 443:443 \
+  simple-http-router
+```
+
+
 # config
-- to start fast, just use some of the `config.sample.*.json` files closest to your case
-- most probably just copy [config.sample.all.json](./config.sample.all.json) to `config.json` and remove what you don't need
+- fast: just use some of the `config.sample.*.json` files closest to your case
+- tweak: OR copy [config.sample.all.json](./config.sample.all.json) to `config.json` and clean it
 - ports `80` and `443` must be reachable for normal ACME validation and HTTPS traffic to work
 - for complete options possible either look at the [config.sample.all.json](./config.sample.all.json) or [readme-config.md](./readme-config.md)
 - how to read
@@ -17,25 +45,6 @@
 	- it should be easy to pick-up:  listeners, routers, defaults and per site overrides
 
 ![](./readme-screens/12-config.png)
-
-# install from releases
-```sh
-# linux amd64 version
-sudo bash -c 'VERSION=2026.04.11; ARCH=aarch64; curl -L -o /usr/local/bin/simple-http-router "https://github.com/codemodify/simple-http-router/releases/download/${VERSION}/simple-http-router_linux-${ARCH}"'
-
-sudo chmod +x /usr/local/bin/simple-http-router
-
-/usr/local/bin/simple-http-router -version
-```
-
-- use this systemd [simple-http-router.service](./sysadmin/simple-http-router.service)
-
-```sh
-sudo cp simple-http-router.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable simple-http-router
-sudo systemctl start simple-http-router
-```
 
 # run - prod
 - `simple-http-router -config config.json`
