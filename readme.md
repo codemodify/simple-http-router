@@ -10,22 +10,21 @@
 # install - binary + systemd
 - use this systemd [simple-http-router.service](./sysadmin/simple-http-router.service)
 
-
 ```sh
 # linux amd64 version (check version)
 sudo bash -c 'VERSION=2026.04.13; ARCH=x86_64; curl -L -o /usr/local/bin/simple-http-router "https://github.com/codemodify/simple-http-router/releases/download/${VERSION}/simple-http-router_linux-${ARCH}"'
 
 sudo chmod +x /usr/local/bin/simple-http-router
 /usr/local/bin/simple-http-router -version
-sudo cp simple-http-router.service /etc/systemd/system/
+sudo cp sysadmin/simple-http-router.service /etc/systemd/system/
 sudo systemctl daemon-reload && sudo systemctl enable simple-http-router && sudo systemctl start simple-http-router
 ```
 
 
 # install - docker
-- use this systemd [Dockerfile](./sysadmin/Dockerfile)
+- use this [Dockerfile](./sysadmin/Dockerfile)
 ```sh
-docker build -t simple-http-router .
+docker build -t sysadmin/simple-http-router .
 docker run \
   -v /path/to/config.json:/etc/simple-http-router/config.json \
   -v /path/to/cert-cache:/var/lib/simple-http-router/cert-cache \
