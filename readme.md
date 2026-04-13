@@ -13,7 +13,7 @@
 
 ```sh
 # linux amd64 version (check version)
-sudo bash -c 'VERSION=2026.04.11; ARCH=x86_64; curl -L -o /usr/local/bin/simple-http-router "https://github.com/codemodify/simple-http-router/releases/download/${VERSION}/simple-http-router_linux-${ARCH}"'
+sudo bash -c 'VERSION=2026.04.13; ARCH=x86_64; curl -L -o /usr/local/bin/simple-http-router "https://github.com/codemodify/simple-http-router/releases/download/${VERSION}/simple-http-router_linux-${ARCH}"'
 
 sudo chmod +x /usr/local/bin/simple-http-router
 /usr/local/bin/simple-http-router -version
